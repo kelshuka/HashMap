@@ -9,18 +9,17 @@ class Node {
 
 class HashMap{
     constructor(capacity = 17, loadFactor = 0.75){
-        //this.hashmap = hashmap;
         this.capacity = capacity;
         this.loadFactor = loadFactor;
     }
-    arr = new Array(this.capacity);// if (4) means we want only 4 places or buckets
+    arr = new Array(this.capacity);
 
     hash(key){
         let hashCode = 0;
         const primeNumber = 5;// any prime number
         for (let i=0; i < key.length; i++){
             hashCode = primeNumber * hashCode + key.charCodeAt(i);
-            hashCode = hashCode % 16;// b/cos js unable to hold large numbers precisely.
+            hashCode = hashCode % 16;
         }
         return hashCode;
     }
@@ -39,7 +38,6 @@ class HashMap{
 
 
         const idx = this.hash(key);
-        //this.arr[idx] = value;
         let node = new Node(key,value);
         if (this.arr[idx]){
             if (this.arr[idx].key == key) {
