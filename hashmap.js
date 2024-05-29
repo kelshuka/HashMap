@@ -8,10 +8,12 @@ class Node {
 }
 
 class HashMap{
-    /* constructor(head=null){
-        this.head = head;
-    } */
-    arr = new Array(4);// if (4) means we want only 4 places or buckets
+    constructor(capacity = 17, loadFactor = 0.75){
+        //this.hashmap = hashmap;
+        this.capacity = capacity;
+        this.loadFactor = loadFactor;
+    }
+    arr = new Array(this.capacity);// if (4) means we want only 4 places or buckets
 
     hash(key){
         let hashCode = 0;
@@ -24,6 +26,18 @@ class HashMap{
     }
 
     set(key, value){
+        // code to grow the buckets size when the hashMap is 75% full (loadFactor)
+        if (this.length() >= this.capacity * this.loadFactor){
+            const newStorage = this.entries();
+            newStorage.push([key,value]);
+            this.capacity *=2;
+            this.clear();
+            newStorage.forEach(kv => {
+                this.set(kv[0], kv[1])
+            });
+        }
+
+
         const idx = this.hash(key);
         //this.arr[idx] = value;
         let node = new Node(key,value);
